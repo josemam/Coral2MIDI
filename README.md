@@ -1,4 +1,4 @@
-# Coral
+# Coral2MIDI
 Genera un archivo MIDI a partir de cuatro líneas musicales
 
 
