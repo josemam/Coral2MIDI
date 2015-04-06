@@ -35,13 +35,12 @@ class Voice
       return output;
 
     bool C_or_higher = output > 20;
-    if (input[0] == '#')
-      output += 4;
-    else if (input[0] == 'b')
-      output -= 4;
-    else
-      input--;
-    input++;
+    short int flsh = 0;
+    if (input[0] == '#' || input[0] == 'b')
+      while (flsh < 2 && input[flsh] == input[0])
+        output += (input[flsh++] == '#' ? 4 : -4);
+        
+    input += flsh;
 
     short int index = output+48*(input[0] - '1' - (C_or_higher));
     if (index < 4 || index > 255)
