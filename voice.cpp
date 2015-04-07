@@ -69,13 +69,17 @@ public:
     length = 0;
     unsigned int i_pos = 0;
     unsigned char byte = 0;
+    bool wholenote = false;   // Usado para el puntillo de las redondas
     while (length < MAX_LENGTH && input[i_pos] != '\0')
     {
       if (input[i_pos] == '_')
       {
+        if (length == 0)
+          return false;
         byte = Note(input[++i_pos]);
-        if (byte == 4)
-          data[length++] = byte;
+        wholenote = byte == 4;
+        if (wholenote)
+          data[length++] = --byte;
         if (byte == 5)
           return false;
         
@@ -90,7 +94,11 @@ public:
         if (byte == 0)
           return false;
         
-          data[length++] = --byte;
+        if (wholenote)
+          byte++;
+
+        data[length++] = --byte;
+        wholenote = false;
         i_pos++;
       }
       else
@@ -102,9 +110,10 @@ public:
           return false;
         i_pos += (rd_pos - input - i_pos);
         unsigned char byte2 = Note(input[i_pos++]);
+        wholenote = byte2 == 4;
         if (byte2 == 5)
           return false;
-        else if (byte2 == 4)
+        else if (wholenote)
         {
           byte2--;
           data[length++] = byte + byte2;
