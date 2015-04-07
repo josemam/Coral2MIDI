@@ -20,13 +20,12 @@ class Voice
     short int note_pos = -1;
     short int j;
     for (short int i = 0; i < 7 && note_pos == -1; i++)
-    {
-      bool equal = true;
-      for (j = 0; equal && NOTES[i][j] != '\0'; j++)
-        equal = input[j] == NOTES[i][j];
-      if (equal)
-        note_pos = i;
-    }
+      for (j = 0; input[j] == NOTES[i][j]; j++)
+        if (NOTES[i][j+1] == '\0')
+          note_pos = i;
+
+    if (note_pos == -1)
+      return 0;
 
     input += j;
 
@@ -42,13 +41,11 @@ class Voice
         
     input += flsh;
 
-    short int index = output+48*(input[0] - '1' - (C_or_higher));
+    short int index = output + 48*(input++[0] - '1' - (C_or_higher));
     if (index < 4 || index > 255)
       return 0;
-    else
-      output = index;
 
-    input++;
+    output = index;
     return output;
   }
 
