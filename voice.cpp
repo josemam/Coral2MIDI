@@ -1,4 +1,5 @@
 // Clase para almacenar cada una de las voces
+using namespace std;
 
 class Voice
 {
@@ -25,13 +26,11 @@ class Voice
           note_pos = i;
 
     if (note_pos == -1)
-      return 0;
+      throw invalid_argument("nombre de nota no reconocido");
 
     input += j;
 
     unsigned char output = (1+2*note_pos-(note_pos > 2)-(note_pos == 6))*4;
-    if (output == 0)
-      return output;
 
     bool C_or_higher = output > 20;
     short int flsh = 0;
@@ -43,7 +42,7 @@ class Voice
 
     short int index = output + 48*(input++[0] - '1' - (C_or_higher));
     if (index < 4 || index > 255)
-      return 0;
+      throw invalid_argument("nota inválida o fuera del registro");
 
     output = index;
     return output;
@@ -54,17 +53,17 @@ class Voice
   {
     unsigned char output = ((input == 'c') + 2*(input == 'n') + 3*(input == 'b') + 4*(input == 'r'));
     if (output == 0 && input != 's')
-      return 5;
+      throw invalid_argument("figura inválida");
 
     return output;
   }
 
 public:
   // Pasa a salida estándar los datos
-  void Dump() { for (int i = 0; i < length; i++) std::cout << (int) data[i] << ' '; }
+  void Dump() { for (int i = 0; i < length; i++) cout << (int) data[i] << ' '; }
 
   // Rellena los datos de la instancia a partir de datos leídos desde entrada estándar
-  bool Set(char input[])
+  void Set(char input[])
   {
     length = 0;
     unsigned int i_pos = 0;
@@ -75,13 +74,11 @@ public:
       if (input[i_pos] == '_')
       {
         if (length == 0)
-          return false;
+          throw invalid_argument("ligadura como primer dato");
         byte = Note(input[++i_pos]);
         wholenote = byte == 4;
         if (wholenote)
           data[length++] = --byte;
-        if (byte == 5)
-          return false;
         
         data[length++] = byte;
         i_pos++;
@@ -89,10 +86,10 @@ public:
       else if (input[i_pos] == '.')
       {
         if (length == 0)
-          return false;
+          throw invalid_argument("puntillo como primer dato");
         byte = data[length-1]%4;
         if (byte == 0)
-          return false;
+          throw invalid_argument("puntillo de semicorchea");
         
         if (wholenote)
           byte++;
@@ -106,14 +103,10 @@ public:
         char* rd_pos = input;
         rd_pos += i_pos;
         byte = Pitch(rd_pos);
-        if (byte == 0)
-          return false;
         i_pos += (rd_pos - input - i_pos);
         unsigned char byte2 = Note(input[i_pos++]);
         wholenote = byte2 == 4;
-        if (byte2 == 5)
-          return false;
-        else if (wholenote)
+        if (wholenote)
         {
           byte2--;
           data[length++] = byte + byte2;
@@ -125,7 +118,8 @@ public:
       while (input[i_pos] == ' ')
         i_pos++;
     }
-    return input[i_pos] == '\0';
+    if (input[i_pos] != '\0')
+      throw invalid_argument("longitud de entrada excesiva");
   }
 
   // Devuelve la duración en semicorcheas

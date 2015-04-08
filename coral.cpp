@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <stdexcept>
 #include "voice.cpp"
 using namespace std;
 
@@ -15,8 +16,15 @@ int main()
   {
     cout << num[x] << " voz: ";
     cin.getline(input, INPUT_LIMIT);
-    if (!v[x].Set(input))
+    try
+    {
+      v[x].Set(input);
+    }
+    catch (invalid_argument a)
+    {
+      cerr << "Error: " << a.what() << endl;
       return 1;
+    }
   }
 
   // Se genera el trozo de datos MIDI que almacena los sonidos. Podría pasarse a función
