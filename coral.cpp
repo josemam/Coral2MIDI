@@ -43,7 +43,8 @@ int main()
     {
       if (!finish[i] && countdown[i] == 0)
       {
-        if (v[i].Length(pos[i]) > 0 && v[i].Source(pos[i]) < pos[i])
+        finish[i] = v[i].Length(pos[i]) == 0;
+        if (!finish && v[i].Source(pos[i]) < pos[i])
           countdown[i] = v[i].Length(pos[i]++);
         else
         {
@@ -61,7 +62,6 @@ int main()
             data[chpos++] = v[i].MIDIpitch(v[i].Source(pos[i]-1));
             data[chpos++] = 0x00;
           }
-          finish[i] = v[i].Length(pos[i]) == 0;
           if (!finish[i])
           {
             data[chpos++] = 0x00;
