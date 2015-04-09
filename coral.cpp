@@ -23,7 +23,7 @@ int main()
     catch (invalid_argument a)
     {
       cerr << "Error: " << a.what() << endl;
-      return 1;
+      x--;
     }
   }
 
