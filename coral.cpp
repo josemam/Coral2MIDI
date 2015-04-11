@@ -44,7 +44,7 @@ int main()
       if (!finish[i] && countdown[i] == 0)
       {
         finish[i] = v[i].Length(pos[i]) == 0;
-        if (!finish && v[i].Source(pos[i]) < pos[i])
+        if (!finish[i] && v[i].Source(pos[i]) < pos[i])
           countdown[i] = v[i].Length(pos[i]++);
         else
         {
