@@ -60,7 +60,7 @@ class Voice
 
 public:
   // Pasa a salida estándar los datos
-  void Dump() { for (int i = 0; i < length; i++) cout << (int) data[i] << ' '; }
+  void Dump() const { for (int i = 0; i < length; i++) cout << (int) data[i] << ' '; }
 
   // Rellena los datos de la instancia a partir de datos leídos desde entrada estándar
   void Set(char input[])
@@ -123,7 +123,7 @@ public:
   }
 
   // Devuelve la duración en semicorcheas
-  unsigned short int Length(unsigned int pos)
+  unsigned short int Length(unsigned int pos) const
   {
     if (pos >= length)
       return 0;
@@ -136,7 +136,7 @@ public:
   }
 
   // Devuelve la posición en la que la nota empezó a sonar
-  unsigned short int Source(unsigned short int pos)
+  unsigned short int Source(unsigned short int pos) const
   {
     unsigned short int res;
     for (res = pos; res >= 0 && data[res]/4 == 0; res--);
@@ -144,7 +144,7 @@ public:
   }
 
   // Devuelve el caracter de la altura MIDI de la nota (do central = 60) 0 30 si es ligadura
-  char MIDIpitch(unsigned int pos)
+  char MIDIpitch(unsigned int pos) const
   {
     if (pos >= length)
       return 0;
