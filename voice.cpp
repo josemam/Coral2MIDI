@@ -7,6 +7,7 @@ using namespace std;  // stdexcept
 // Obtiene los 6 primeros bits: la altura
 unsigned char Voice::Pitch(char* &input)
 {
+  // Lee el nombre de la nota
   short int note_pos = -1;
   short int j;
   for (short int i = 0; i < 7 && note_pos == -1; i++)
@@ -19,9 +20,12 @@ unsigned char Voice::Pitch(char* &input)
 
   input += j;
 
+  // Asigna una altura teniendo en cuenta distancias de tono o semitono
   unsigned char output = (1+2*note_pos-(note_pos > 2)-(note_pos == 6))*4;
 
   bool C_or_higher = output > 20;
+
+  // Lee sostenido o bemol, si lo hay
   short int flsh = 0;
   if (input[0] == '#' || input[0] == 'b')
     while (flsh < 2 && input[flsh] == input[0])
@@ -29,6 +33,7 @@ unsigned char Voice::Pitch(char* &input)
         
   input += flsh;
 
+  // Sube tantas octavas como indique el número
   short int index = output + 48*(input++[0] - '1' - (C_or_higher));
   if (index < 4 || index > 255)
     throw invalid_argument("nota inválida o fuera del registro");
