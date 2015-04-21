@@ -133,10 +133,10 @@ unsigned short int Voice::Source(unsigned short int pos) const
   return res;
 }
 
-// Devuelve el caracter de la altura MIDI de la nota (do central = 60) 0 30 si es ligadura
+// Devuelve el caracter de la altura MIDI de la nota (do central = 60) o 0 si es ligadura
 char Voice::MIDIpitch(unsigned int pos) const
 {
-  if (pos >= length)
+  if (pos >= length || data[pos] < 4)
     return 0;
   return data[pos]/4+30;
 }

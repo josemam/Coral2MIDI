@@ -23,7 +23,7 @@ bool GetChunk(const Voice v[], char data[], unsigned int &chpos, int INPUT_LIMIT
       if (!finish[i] && countdown[i] == 0)
       {
         finish[i] = v[i].Length(pos[i]) == 0;
-        if (!finish[i] && v[i].Source(pos[i]) < pos[i])
+        if (!finish[i] && v[i].MIDIpitch(pos[i]) == 0)
           countdown[i] = v[i].Length(pos[i]++);
         else
         {
