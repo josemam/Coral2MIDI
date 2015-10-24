@@ -60,7 +60,7 @@ bool GetChunk(const Voice v[], char data[], unsigned int &chpos, int INPUT_LIMIT
 }
 
 // Guarda en un archivo un fragmento junto con una cabecera y dos fragmentos fijos
-bool Write(const char* name, const char* data, unsigned int chpos)
+bool Write(const char* name, const char* data, unsigned int chpos, char instrument)
 {
   ofstream f(name, ios::out|ios::binary);
   if (f)
@@ -75,7 +75,6 @@ bool Write(const char* name, const char* data, unsigned int chpos)
       f << (char) ((length >> 8*x)%256);    
 
     // Se escribe el trozo y el final del fichero
-    char instrument = 0x34; // Coro Aahs (52 en decimal)
     char middle[8] = {0x00, 0xff, 0x03, 0x01, 0xc7, 0x00, 0xc0, instrument};
     f.write(middle, 8);
 
@@ -88,9 +87,9 @@ bool Write(const char* name, const char* data, unsigned int chpos)
 }
 
 // Llama a las dos funciones anteriores
-bool Write(const char* name, const Voice v[], int INPUT_LIMIT)
+bool Write(const char* name, const Voice v[], int INPUT_LIMIT, char instrument)
 {
   char data[INPUT_LIMIT];
   unsigned int chpos;
-  return GetChunk(v, data, chpos, INPUT_LIMIT) && Write(name, data, chpos);
+  return GetChunk(v, data, chpos, INPUT_LIMIT) && Write(name, data, chpos, instrument);
 }
