@@ -117,12 +117,8 @@ unsigned short int Voice::Length(unsigned int pos) const
 {
   if (pos >= length)
     return 0;
-  unsigned short int rem = data[pos]%4;
-  unsigned short int output = 1;
-  for (unsigned short int i = 0; i < rem; i++)
-    output *= 2;
 
-  return output;
+  return (1 << (data[pos]%4));
 }
 
 // Devuelve la posición en la que la nota empezó a sonar
