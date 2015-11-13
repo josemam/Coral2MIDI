@@ -8,7 +8,7 @@ $(EXE) : coral.cpp voice.cpp midi.cpp
 	$(CXX) -o $(EXE) $^
 
 test : $(EXE)
-	cat $(TEST) | ./$(EXE) && $(PLAYER)
+	./$(EXE) < $(TEST) && $(PLAYER)
 
 clean :
 	rm -f $(EXE)
