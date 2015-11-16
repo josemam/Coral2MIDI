@@ -99,11 +99,11 @@ void Voice::Set(char input[])
       if (wholenote)
       {
         byte2--;
-        data[length++] = byte + byte2;
+        data[length++] = byte | byte2;
         data[length++] = byte2;
       }
       else
-        data[length++] = byte + byte2;
+        data[length++] = byte | byte2;
     }
     while (input[i_pos] == ' ')
       i_pos++;
