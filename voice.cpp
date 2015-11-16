@@ -125,7 +125,7 @@ unsigned short int Voice::Length(unsigned int pos) const
 unsigned short int Voice::Source(unsigned short int pos) const
 {
   unsigned short int res;
-  for (res = pos; res >= 0 && data[res]/4 == 0; res--);
+  for (res = pos; res > 0 && data[res]/4 == 0; res--);
   return res;
 }
 
