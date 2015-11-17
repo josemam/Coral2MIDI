@@ -9,10 +9,10 @@
 bool GetChunk(const Voice v[], char data[], unsigned int &chpos, int INPUT_LIMIT);
 
 // Guarda en un archivo un fragmento junto con una cabecera y dos fragmentos fijos
-bool Write(const char* name, const char* data, unsigned int chpos, char instrument);
+bool Write(const char* name, const char* data, unsigned int chpos, unsigned char instrument, unsigned char tempo);
 
 // Llama a las dos funciones anteriores
 // 52 = Coro Aahs
-bool Write(const char* name, const Voice v[], int INPUT_LIMIT, char instrument=52);
+bool Write(const char* name, const Voice v[], int INPUT_LIMIT, unsigned char instrument=52, unsigned char tempo=120);
 
 #endif
