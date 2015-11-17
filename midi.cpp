@@ -56,7 +56,7 @@ bool GetChunk(const Voice v[], char data[], unsigned int &chpos, int INPUT_LIMIT
     }
     nothingfor++;
   }
-  return chpos < INPUT_LIMIT;
+  return chpos > 0 && chpos < INPUT_LIMIT;
 }
 
 // Guarda en un archivo un fragmento junto con una cabecera y dos fragmentos fijos
