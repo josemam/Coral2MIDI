@@ -74,7 +74,7 @@ bool Write(const char* name, const char* data, unsigned int chpos, unsigned char
     // Se calcula la longitud del trozo y se escribe en hexadecimal
     unsigned int length = chpos + 12;
     for (short int x = 3; x > -1; x--)
-      f << (char) ((length >> 8*x)%256);    
+      f.put(length >> 8*x); 
 
     // Se escribe el trozo y el final del fichero
     char middle[8] = {0x00, 0xff, 0x03, 0x01, 0xc7, 0x00, 0xc0, instrument};
