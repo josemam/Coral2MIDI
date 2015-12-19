@@ -4,8 +4,12 @@
 #include "midi.h"
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
+  const char* file = "salida.mid";  // Nombre por defecto
+  if (argc > 1)
+    file = argv[1];
+
   const int INPUT_LIMIT = 65536;
   char input[INPUT_LIMIT];
   Voice v[4];
@@ -27,7 +31,7 @@ int main()
     }
   }
 
-  if (!Write("salida.mid", v, INPUT_LIMIT))
+  if (!Write(file, v, INPUT_LIMIT))
   {
     cerr << "Error al intentar guardar el archivo";
     return 1;

@@ -2,7 +2,7 @@
 Genera un archivo MIDI a partir de cuatro líneas musicales
 
 
-Este programa lee desde entrada estándar cuatro series de notas musicales y elabora un archivo midi `salida.mid` que presenta las cuatro voces con el banco MIDI número 53 (52 si se empieza a contar por el 0), conocido como *Coro Aahs*. El programa está orientado a ser usado para generar archivos MIDI de corales a 4 voces.
+Este programa lee desde entrada estándar cuatro series de notas musicales y elabora un archivo midi cuyo nombre es fijado por el parámetro que se pase al programa (si no hay parámetro, se guarda en `salida.mid`) que presenta las cuatro voces con el banco MIDI número 53 (52 si se empieza a contar por el 0), conocido como *Coro Aahs*. El programa está orientado a ser usado para generar archivos MIDI de corales a 4 voces.
 
 Compilación: basta usar `make`. Se compilará un archivo con el nombre `coral`.
 
