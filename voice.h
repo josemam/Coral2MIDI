@@ -18,10 +18,10 @@ class Voice
   unsigned short int length;
 
   // Obtiene los 6 primeros bits: la altura
-  unsigned char Pitch(char* &input);
+  unsigned char Pitch(char* &input) const;
 
   // Obtiene los 2 últimos bits: la duración
-  unsigned char Note(char input);
+  unsigned char Note(char input) const;
 
 public:
   // Rellena los datos de la instancia a partir de datos leídos desde entrada estándar

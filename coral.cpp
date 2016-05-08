@@ -31,9 +31,9 @@ int main(int argc, char* argv[])
     }
   }
 
-  if (!Write(file, v, INPUT_LIMIT))
-  {
+  bool success = Write(file, v, INPUT_LIMIT);
+  if (!success)
     cerr << "Error al intentar guardar el archivo";
-    return 1;
-  }
+  
+  return !success;
 }

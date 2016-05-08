@@ -5,7 +5,7 @@
 using namespace std;  // stdexcept
 
 // Obtiene los 6 primeros bits: la altura
-unsigned char Voice::Pitch(char* &input)
+unsigned char Voice::Pitch(char* &input) const
 {
   // Lee el nombre de la nota
   short int note_pos = -1;
@@ -43,7 +43,7 @@ unsigned char Voice::Pitch(char* &input)
 }
 
 // Obtiene los 2 últimos bits: la duración
-unsigned char Voice::Note(char input)
+unsigned char Voice::Note(char input) const
 {
   unsigned char output = ((input == 'c') + 2*(input == 'n') + 3*(input == 'b') + 4*(input == 'r'));
   if (output == 0 && input != 's')
